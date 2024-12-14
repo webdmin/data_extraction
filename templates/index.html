@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Route Visualization App</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Mapbox GL CSS -->
+    <link href='https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.css' rel='stylesheet' />
+    
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+        }
+        #app-container {
+            display: flex;
+            height: 100vh;
+        }
+        #map-container {
+            width: 70%;
+            height: 100%;
+        }
+        #controls-container {
+            width: 30%;
+            padding: 20px;
+            overflow-y: auto;
+            background-color: #f8f9fa;
+        }
+        #map {
+            width: 100%;
+            height: 100%;
+        }
+        .route-item {
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .route-item:hover {
+            background-color: #f1f3f5;
+        }
+
+        /* Status message style */
+        #status {
+            display: none;
+            font-weight: bold;
+            padding: 10px;
+            background-color: #f0ad4e;
+            color: white;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div id="app-container">
+        <div id="map-container">
+            <div id="map"></div>
+        </div>
+        
+        <div id="controls-container">
+            <h3 class="mb-4">Route Planner</h3>
+            
+            <form id="route-form">
+                <div class="mb-3">
+                    <label for="origin" class="form-label">Origin</label>
+                    <input type="text" class="form-control" id="origin" placeholder="Enter origin" required>
+                </div>
+                
+                <div class="mb-3">
+                    <label for="destination" class="form-label">Destination</label>
+                    <input type="text" class="form-control" id="destination" placeholder="Enter destination" required>
+                </div>
+                
+                <button type="submit" class="btn btn-primary w-100">Find Routes</button>
+            </form>
+            
+            <!-- View Stored Routes Button -->
+            <a href="/stored-routes" class="btn btn-secondary w-100 mt-3">
+                View Stored Routes
+            </a>
+            
+            <!-- Status Message -->
+            <div id="status"></div>
+
+            <div id="routes-list" class="mt-4">
+                <!-- Routes will be dynamically populated here -->
+            </div>
+            
+            <div id="route-details" class="mt-4">
+                <h4>Route Details</h4>
+                <div id="route-metadata">
+                    <!-- Route metadata will be displayed here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- External Libraries -->
+    <script src='https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.js'></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Pass Mapbox token from server -->
+    <script>
+        window.MAPBOX_ACCESS_TOKEN = '{{ mapbox_token }}'; // Pass Mapbox token from Flask
+    </script>
+    
+    <!-- Application Script -->
+    <script src="static/js/app.js"></script>
+</body>
+</html>
