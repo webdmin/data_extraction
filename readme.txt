@@ -1,6 +1,6 @@
 1. Clone the repository
 ```bash
-git clone https://github.com/yourusername/route-visualization-app.git
+git clone link
 cd route-visualization-app
 ```
 
